@@ -2,30 +2,54 @@
 This is empty on purpose! Your code to build the resume will go here.
  */
 
-$("#main").append("thanh ly");
+var work = {
+	"jobs": [
+		{
+			"employer": "Gensler",
+			"title": "Technical Designer",
+			"location": "Austin",
+			"dates": "2014-future",
+			"description": "architectural designer for large scale commercial projects"
 
-var awesomeThoughts= "I am thanh ly and i am awesome!"
-var funThoughts= awesomeThoughts.replace("awesome", "fun");
-$("#main").append(funThoughts);
-
-var formattedName= HTMLheaderName.replace("%data%","Thanh Ly")
-var formattedRole= HTMLheaderRole.replace("%data%","Front End Developer")
-$("#header").prepend(formattedName, formattedRole);
-
-var skills=["maths","foods","talking","sciencing"]
-$("#main").append(skills);
-
-var bio= {
-	"name": "Thanh Ly",
-	"age": 24,
-	"skills": skills,
-	"role": formattedRole,
-	"welcome": awesomeThoughts,
-	"pictureURL": "images/fry.jpg"
+		},
+		{
+			"employer": "Franklin Alan",
+			"title": "Project Manager",
+			"location": "Austin",
+			"dates": "2015",
+			"description": "construction project manager for small scale commercial projects"
+		},
+		{
+			"employer": "Raum Industries",
+			"title": "Designer",
+			"location": "Austin",
+			"dates": "2015-future",
+			"description": "designer and coordinator for experiential marketing installations"
+		},
+	]
 }
 
-$("main").append(bio);
+var projects = {
+	"projects": [
+		{
+			"title": "Portfolio Website",
+			"dates": "July 2016",
+			"description": "Responsive portfolio website with two breakpoints and srcset responsive images",
+			"images": [
+				"images/project1image1.jpg",
+				"images/project1image2.jpg",
+				]
 
-console.log(awesomeThoughts);
-console.log(funThoughts);
-console.log(formattedRole, formattedName)
+		},
+		{
+			"title": "Flyrite",
+			"dates": "July 2015",
+			"description": "Local restaurant serving organic chicken sandwiches and beer",
+			"images": [
+				"images/project2image1.jpg",
+				"images/project2image2.jpg",
+				]
+
+		},
+	]
+}
