@@ -92,17 +92,72 @@ if(bio.skills.length > 0) {
 		$("#skills").append(formattedSkill);
 };
 
-for (job in work.jobs) {
-	$("#workExperience").append(HTMLworkStart);
+function displayWork() {
+	for (job in work.jobs) {
+		//creates a new div for work experience
+		$("#workExperience").append(HTMLworkStart);
+		//concatenates employer and title defined in work.jobs
+		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+		var formattedEmployerTitle = formattedEmployer + formattedTitle;
+		$(".work-entry:last").append(formattedEmployerTitle);
+		//add dates from work.jobs
+		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+		$(".work-entry:last").append(formattedDates);
+		//add description from work.jobs
+		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+		$(".work-entry:last").append(formattedDescription);
+	}
+};
 
-	var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-	var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-	var formattedEmployerTitle = formattedEmployer + formattedTitle;
-	$(".work-entry:last").append(formattedEmployerTitle);
+displayWork();
+$(document).click(function(loc) {
+  var x = loc.pageX;
+  var y = loc.pageY;
 
-	var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
-	$(".work-entry:last").append(formattedDates);
+  logClicks(x,y);
+});
 
-	var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-	$(".work-entry:last").append(formattedDescription);
+// this function logs the location into an array and returns the location subobject in work object
+function locationizer(work_obj) {
+    var locationArray = []; 
+    
+    for (job in work_obj.jobs) {
+        var newLocation = work.jobs[job].location; 
+        locationArray.push(newLocation);
+    }
+    return locationArray;
+}
+
+// Did locationizer() work? This line will tell you!
+console.log(locationizer(work));
+
+function inName(name) {
+	name = bio.name.trim().split(" ");
+	console.log(name);
+	name[1] = name[1].toUpperCase();
+	name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1).toLowerCase();
+
+	return name[0] + " " + name[1];
+}
+
+$("#main").append(internationalizeButton);
+
+
+projects.display = function() {
+	for (project in projects.projects) {
+		$("#projects").append(HTMLprojectStart);
+
+		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+		$(".project-entry:last").append(formattedTitle);
+		var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+		$(".project-entry:last").append(formattedDates);
+		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+		$(".project-entry:last").append(formattedDescription);
+
+		if (projects.projects[project].images.length > 0) {
+			var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].image[image]);
+			$(".project-entry:last").append(formattedImage);
+		}
+	}
 };
