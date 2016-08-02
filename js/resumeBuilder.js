@@ -2,7 +2,7 @@
 var bio = {
     "name": "Thanh Ly",
     "role": "front end developer",
-    "welcomemessage": "Hello World!",
+    "welcomeMessage": "Hello World!",
     "skills": ["science", "math", "HTML", "CSS", "Javascript"],
     "biopic": "images/thanh.jpg",
     "contacts": {
@@ -18,22 +18,25 @@ var work = {
     "jobs": [{
         "employer": "Gensler",
         "title": "Technical Designer",
-        "location": "Austin",
+        "location": "Austin, TX",
         "dates": "2014-future",
-        "description": "architectural designer for large scale commercial projects"
+        "description": "architectural designer for large scale commercial " + 
+        "projects"
 
     }, {
         "employer": "Franklin Alan",
         "title": "Project Manager",
-        "location": "Austin",
+        "location": "Austin, TX",
         "dates": "2015",
-        "description": "construction projecst manager for small scale commercial projects"
+        "description": "construction projecst manager for small scale commercial"
+        + " projects"
     }, {
         "employer": "Raum Industries",
         "title": "Designer",
         "location": "San Francisco, CA",
         "dates": "2015-future",
-        "description": "designer and coordinator for experiential marketing installations"
+        "description": "designer and coordinator for experiential marketing"
+        + " installations"
     }]
 };
 
@@ -42,7 +45,8 @@ var projects = {
     "projects": [{
         "title": "Portfolio Website",
         "dates": "July 2016",
-        "description": "Responsive portfolio website with two breakpoints and srcset responsive images",
+        "description": "Responsive portfolio website with two breakpoints and"
+        + " srcset responsive images",
         "images": [
             "images/project1image1.jpg",
             "images/project1image2.jpg",
@@ -70,7 +74,7 @@ var education = {
         "dates": "2010-2015",
         "url": "http://www.utexas.edu",
     }],
-    "onlinecourses": [{
+    "onlineCourses": [{
         "title": "Front End Developer Nanodegree",
         "school": "Udacity",
         "dates": "2016",
@@ -83,7 +87,7 @@ bio.display = function() {
     var formattedPic = HTMLbioPic.replace("%data%", bio.biopic);
     var formattedName = HTMLheaderName.replace("%data%", bio.name);
     var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-    var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomemessage);
+    var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
     $("#header").prepend(formattedPic, formattedName, formattedRole, formattedWelcomeMsg);
 
     var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
@@ -110,8 +114,9 @@ work.display = function() {
         //concatenates employer and title defined in work.jobs
         var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
         var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+        var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
         var formattedEmployerTitle = formattedEmployer + formattedTitle;
-
+        $(".work-entry:last").append(formattedLocation);
         $(".work-entry:last").append(formattedEmployerTitle);
         var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
         $(".work-entry:last").append(formattedDates);
@@ -135,10 +140,11 @@ projects.display = function() {
         $(".project-entry:last").append(formattedDescription);
 
         if (projects.projects[project].images.length > 0) {
-            for (var image in projects.projects[project].images) {
-                var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+            projects.projects[project].images.forEach(function(image) {
+                var formattedImage = HTMLprojectImage.replace("%data%", image);
                 $(".project-entry:last").append(formattedImage);
-            }
+                
+            });
         }
     }
 };
@@ -152,8 +158,7 @@ education.display = function() {
         var formattedSchoolDates = HTMLschoolDates.replace("%data%", school.dates);
         var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", school.location);
         var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", school.degree);
-        $(".education-entry:last").append(formattedSchoolName);
-        $(".education-entry:last").append(formattedSchoolDegree);
+        $(".education-entry:last").append(formattedSchoolName + formattedSchoolDegree);
         $(".education-entry:last").append(formattedSchoolLocation);
         $(".education-entry:last").append(formattedSchoolDates);
 
@@ -163,9 +168,10 @@ education.display = function() {
         });
     });
 
-    if (education.onlinecourses.length > 0) {
+    if (education.onlineCourses.length > 0) {
+        $("#education").append(HTMLschoolStart);
         $(".education-entry:last").append(HTMLonlineClasses);
-        education.onlinecourses.forEach(function(course) {
+        education.onlineCourses.forEach(function(course) {
             var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", course.title).replace('#', course.url);
             var formattedOnlineURL = HTMLonlineURL.replace("%data%", course.title).replace("#", course.url);
             var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", course.school);
